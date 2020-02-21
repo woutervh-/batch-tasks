@@ -49,34 +49,24 @@ class DurationBatch<T> implements Batch<T> {
 }
 
 export class BatchTasks<T> {
-    private _generator: () => Generator<Batch<T>>;
-
-    public constructor(generator: () => Generator<Batch<T>>) {
-        this._generator = generator;
-    }
-
     public static fromArrayAndSize<T>(items: T[], batchSize: number) {
-        return new BatchTasks(function* () {
+        return (function* () {
             for (let i = 0; i < items.length; i += batchSize) {
                 const start = i;
                 const end = Math.min(i + batchSize, items.length);
                 yield new ArrayBatch(items, start, end);
             }
-        });
+        })();
     }
 
     public static fromArrayAndDuration<T>(items: T[], batchDuration: number) {
-        return new BatchTasks(function* () {
+        return (function* () {
             let lastBatch: DurationBatch<T> | null = null;
             while (lastBatch === null || lastBatch.end < items.length) {
                 lastBatch = new DurationBatch(items, lastBatch === null ? 0 : lastBatch.end, batchDuration);
                 yield lastBatch;
             }
-        });
-    }
-
-    public batches() {
-        return this._generator();
+        })();
     }
 }
 
