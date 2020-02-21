@@ -71,7 +71,7 @@ export class BatchTasks<T> {
 }
 
 export class Sequential {
-    public static async runAllBatches<T>(batches: Generator<Batch<T>>, action: (batch: Batch<T>) => void, abortSignal: AbortSignal) {
+    public static async runAllBatches<T extends Batch<unknown>>(batches: Generator<T>, action: (batch: T) => void, abortSignal: AbortSignal) {
         for (const batch of batches) {
             if (abortSignal.aborted) {
                 break;
