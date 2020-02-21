@@ -3,9 +3,9 @@ interface Batch<T> {
 }
 
 class ArrayBatch<T> implements Batch<T> {
-    private items: T[];
-    private start: number;
-    private end: number;
+    public readonly items: T[];
+    public readonly start: number;
+    public readonly end: number;
 
     public constructor(items: T[], start: number, end: number) {
         this.items = items;
@@ -43,7 +43,17 @@ export class BatchTasks<T> {
 }
 
 export class Sequential {
-    public static async runAll<T>(batches: Generator<Batch<T>>, action: (item: T, index: number) => void, abortSignal: AbortSignal) {
+    public static async runAllBatches<T>(batches: Generator<Batch<T>>, action: (batch: Batch<T>) => void, abortSignal: AbortSignal) {
+        for (const batch of batches) {
+            if (abortSignal.aborted) {
+                break;
+            }
+            action(batch);
+            await new Promise((resolve) => setTimeout(resolve, 0));
+        }
+    }
+
+    public static async runAllTasks<T>(batches: Generator<Batch<T>>, action: (item: T, index: number) => void, abortSignal: AbortSignal) {
         for (const batch of batches) {
             if (abortSignal.aborted) {
                 break;
