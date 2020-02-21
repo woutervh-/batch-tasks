@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "ES6",
+    "module": "commonjs",
+    "lib": [
+      "ES6",
+      "DOM"
+    ],
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "lib/",
+    "strict": true,
+    "noUnusedLocals": true,
+    // "moduleResolution": "node",           
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "src/"
+  ]
+}

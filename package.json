@@ -1,0 +1,23 @@
+{
+  "name": "batch-tasks",
+  "version": "0.1.0",
+  "description": "Batch CPU bound tasks",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woutervh-/batch-tasks.git"
+  },
+  "author": "Wouter van Heeswijk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/woutervh-/batch-tasks/issues"
+  },
+  "homepage": "https://github.com/woutervh-/batch-tasks#readme",
+  "devDependencies": {
+    "@types/node": "^13.7.4",
+    "typescript": "^3.8.2"
+  }
+}
