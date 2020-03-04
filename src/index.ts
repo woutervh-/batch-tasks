@@ -48,7 +48,7 @@ class DurationBatch<T> implements Batch<T> {
     }
 }
 
-export class BatchTasks<T> {
+export class BatchTasks {
     public static fromArrayAndSize<T>(items: T[], batchSize: number) {
         return (function* () {
             for (let i = 0; i < items.length; i += batchSize) {
